@@ -1,0 +1,7 @@
+---
+title: "MOD_B"
+description: "Awesome mod B"
+printer_compatibility:
+  - V2
+  - V1
+  - V0

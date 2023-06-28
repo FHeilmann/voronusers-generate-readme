@@ -1,0 +1,72 @@
+name: Generate VoronUsers README.md
+author: FHeilmann
+description: This action searches for .metadata.yml files in a specific folder, and generates a Readme file in said folder
+branding:
+  icon: 'hard-drive'
+  color: 'red'
+inputs:
+  base_dir:
+    description: Base directory in which the repository will be checked out into
+    type: string
+    required: true
+    default: .
+  printer_mods_subdir:
+    descritption: Name of the subdirectory, relative to the repository base directory, in which the printer mods are located
+    type: string
+    required: true
+    default: printer_mods
+  github_token:
+    description: 'GitHub token or PAT token'
+    required: false
+    default: ${{ github.token }}
+  commit_msg:
+    description: "Commit message to use (don't forget to add [skip ci])"
+    type: string
+    required: true
+    default: "Generate VoronUsers printer_mods README.md [skip ci]"
+  commit_user:
+    description: "Commit username to use"
+    type: string
+    required: true
+    default: "Readme-Committer"
+  commit_email:
+    description: "Commit eMail to use"
+    type: string
+    required: true
+    default: "readme@commit.me"
+runs:
+  using: "composite"
+  steps:
+    - name: Perform Sparse Checkout
+      id: sparse-checkout
+      uses: FHeilmann/sparse-checkout@main
+      with:
+        patterns: "**/.metadata.yml ${{inputs.printer_mods_subdir}}/README.md"
+        path: ${{inputs.base_dir}}
+    - name: Setup Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11' 
+    - name: Install PyYAML
+      run: |
+        pip install pyyaml
+      shell: bash
+    - name: Generate README.md
+      working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
+      run: |
+        python $GITHUB_WORKSPACE/generate_readme.py
+      shell: bash
+    - name: Commit files 
+      working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
+      run: |
+        git config --local user.email ${{inputs.commit_email}}
+        git config --local user.name ${{inputs.commit_user}}
+        git add README.md
+        git commit -m "${{inputs.commit_msg}}"
+      shell: bash
+    - name: Push changes
+      uses: ad-m/github-push-action@b007e7b818e33b04afd056e4c4b57ba917145d7a
+      with:
+        directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
+        github_token: ${{inputs.github_token}}
+        branch: ${{github.ref}}

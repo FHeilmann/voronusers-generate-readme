@@ -1,0 +1,9 @@
+---
+title: "FHeilmann's awesome mod 2"
+description: "This mod does awesome things with awesome printers!"
+printer_compatibility:
+  - V0
+  - V1
+  - V2
+  - VSW
+  - Trident

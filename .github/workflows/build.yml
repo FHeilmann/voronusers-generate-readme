@@ -1,0 +1,21 @@
+name: Action CI
+
+on:
+  push:
+    branches: [master, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test action
+        # The action should not publish any real changes, but should succeed.
+        uses: './'
+        with:
+          base_dir: "tmp_test"
+          printer_mods_subdir: ".action_tests/printer_mods"
+          commit_msg: "Generate action tests README.md [skip ci]"
+          commit_user: Voron-GitHub-Bot
+          commit_email: github@vorondesign.com
+          github_token: ${{secrets.VORON_BOT_TOKEN}}
