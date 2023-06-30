@@ -60,6 +60,7 @@ runs:
       if: ${{ inputs.preview == 'false' }}
       working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
+        ls -al
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
         git add README.md
