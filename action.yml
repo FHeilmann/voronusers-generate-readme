@@ -37,7 +37,7 @@ inputs:
   preview:
     description: "Whether to only preview the README.md file"
     type: boolean
-    requred: true
+    required: true
     default: true
   do_checkout:
     description: Whether checkout needs to be performed (true) or all files are already present (false)
