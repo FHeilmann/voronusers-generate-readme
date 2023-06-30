@@ -13,6 +13,7 @@ inputs:
   github_token:
     description: 'GitHub token or PAT token'
     required: true
+    default: ${{secrets.GITHUB_TOKEN}}
   commit_msg:
     description: "Commit message to use (don't forget to add [skip ci])"
     type: string
@@ -36,6 +37,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
     - name: Setup Python 3.11
       uses: actions/setup-python@v4
       with:
