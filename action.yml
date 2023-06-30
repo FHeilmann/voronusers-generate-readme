@@ -37,9 +37,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
-      with:
-        persist-credentials: false
     - name: Setup Python 3.11
       uses: actions/setup-python@v4
       with:
@@ -52,7 +49,7 @@ runs:
       working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
         export PREVIEW=${{inputs.preview}}
-        python $GITHUB_WORKSPACE/generate_readme.py
+        python ${{github.action_path}}/generate_readme.py
       shell: bash
     - name: Commit files 
       if: ${{ inputs.preview == 'false' }}
