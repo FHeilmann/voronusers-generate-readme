@@ -62,7 +62,7 @@ runs:
       run: |
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
-        git add ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}/README.md
+        git add README.md
         git commit -m "${{inputs.commit_msg}}"
       shell: bash
     - name: Push changes
