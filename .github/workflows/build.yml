@@ -9,6 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: List all checked out files
+        id: list-files
+        shell: bash
+        run: |
+          echo "::group::list-files"
+          cd ${{inputs.path}}
+          tree -a -I '.git'
+          echo "::endgroup::"
       - name: Test action
         # The action should not publish any real changes, but should succeed.
         uses: './'
