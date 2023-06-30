@@ -36,7 +36,7 @@ def main():
           prev_username = yml.parts[0]
   print(header)
   print(final_readme)
-  if os.environ['PREVIEW'] = 'false'
+  if os.environ['PREVIEW'] == 'false'
       with open("README.md", 'w') as f:
         f.write(preamble)
         f.write(header)
