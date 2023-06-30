@@ -47,7 +47,7 @@ runs:
       shell: bash
     - name: Generate README.md
       run: |
-        cd ${{inputs.printer_mods_subdir}}
+        cd ${{inputs.target_directory}}
         export PREVIEW=${{inputs.preview}}
         python ${{github.action_path}}/generate_readme.py
       shell: bash
@@ -56,13 +56,13 @@ runs:
       run: |
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
-        git add ${{inputs.printer_mods_subdir}}/README.md
+        git add ${{inputs.target_directory}}/README.md
         git commit -m "${{inputs.commit_msg}}"
       shell: bash
     - name: Push changes
       if: ${{ inputs.preview == 'false' }}
       uses: ad-m/github-push-action@master
       with:
-        directory: ${{inputs.printer_mods_subdir}}
+        directory: ${{inputs.target_directory}}
         github_token: ${{inputs.github_token}}
         branch: ${{github.ref}}
