@@ -26,6 +26,7 @@ header = """
 def main():
   yaml_list = Path(".").glob("**/.metadata.yml")
   prev_username = ""
+  final_readme = ""
   for yml in yaml_list:
       with open(yml, 'r') as f:
           content = yaml.safe_load(f)
