@@ -51,14 +51,14 @@ runs:
         pip install pyyaml
       shell: bash
     - name: Generate README.md
-      working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
+      working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
         export PREVIEW=${{inputs.preview}}
         python $GITHUB_WORKSPACE/generate_readme.py
       shell: bash
     - name: Commit files 
       if: ${{ inputs.preview == 'false' }}
-      working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
+      working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}

@@ -15,7 +15,7 @@ jobs:
         with:
           preview: false
           base_dir: ${{github.workspace}}
-          printer_mods_subdir: "${{github.workspace}}/.action_tests/printer_mods"
+          printer_mods_subdir: "./.action_tests/printer_mods"
           commit_msg: "Generate action tests README.md [skip ci]"
           commit_user: Voron-GitHub-Bot
           commit_email: github@vorondesign.com
