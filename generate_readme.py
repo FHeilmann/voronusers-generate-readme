@@ -39,6 +39,7 @@ def main():
   print(header)
   print(final_readme)
   if os.environ['PREVIEW'] == 'false':
+      print(f"Writing README.md to {Path("README.md")}")
       with open("README.md", 'w') as f:
         f.write(preamble)
         f.write(header)
