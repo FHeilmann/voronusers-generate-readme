@@ -52,7 +52,7 @@ runs:
       id: sparse-checkout
       uses: FHeilmann/sparse-checkout@main
       with:
-        files: README.md
+        files: "**/README.md"
         patterns: "**/.metadata.yml"
         path: ${{inputs.base_dir}}
     - name: Setup Python 3.11
@@ -75,7 +75,7 @@ runs:
       run: |
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
-        git add README.md
+        git add ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}/README.md
         git commit -m "${{inputs.commit_msg}}"
       shell: bash
     - name: Push changes
