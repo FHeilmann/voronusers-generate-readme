@@ -12,9 +12,9 @@ jobs:
       - name: Test action
         # The action should not publish any real changes, but should succeed.
         uses: './'
-        env:
-          PREVIEW: false
         with:
+          preview: false
+          do_checkout: true
           base_dir: "tmp_test"
           printer_mods_subdir: ".action_tests/printer_mods"
           commit_msg: "Generate action tests README.md [skip ci]"

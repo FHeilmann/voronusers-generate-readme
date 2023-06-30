@@ -34,10 +34,21 @@ inputs:
     type: string
     required: true
     default: "readme@commit.me"
+  preview:
+    description: "Whether to only preview the README.md file"
+    type: boolean
+    requred: true
+    default: true
+  do_checkout:
+    description: Whether checkout needs to be performed (true) or all files are already present (false)
+    type: boolean
+    required: true
+    default: true
 runs:
   using: "composite"
   steps:
     - name: Perform Sparse Checkout
+      if: ${{ env.do_checkout == 'true' }}
       id: sparse-checkout
       uses: FHeilmann/sparse-checkout@main
       with:
@@ -54,10 +65,11 @@ runs:
     - name: Generate README.md
       working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
       run: |
+        export PREVIEW=${{inputs.preview}}
         python $GITHUB_WORKSPACE/generate_readme.py
       shell: bash
     - name: Commit files 
-      if: ${{ env.PREVIEW == 'false' }}
+      if: ${{ inputs.preview == 'false' }}
       working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
       run: |
         git config --local user.email ${{inputs.commit_email}}
@@ -66,7 +78,7 @@ runs:
         git commit -m "${{inputs.commit_msg}}"
       shell: bash
     - name: Push changes
-      if: ${{ env.PREVIEW == 'false' }}
+      if: ${{ inputs.preview == 'false' }}
       uses: ad-m/github-push-action@b007e7b818e33b04afd056e4c4b57ba917145d7a
       with:
         directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
