@@ -17,11 +17,7 @@ contact the admins on Discord to have your mod moved to this folder.
 
 """
 
-header = """
-
-| Creator | Mod title | Description | Printer compatibility |
-| --- | --- | --- | --- |
-"""
+header = "| Creator | Mod title | Description | Printer compatibility |\n| --- | --- | --- | --- |\n"
 
 def main():
   yaml_list = Path(".").glob("**/.metadata.yml")
