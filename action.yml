@@ -57,7 +57,7 @@ runs:
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
         git add ${{inputs.target_directory}}/README.md
-        git commit -m "${{inputs.commit_msg}}"
+        git commit -m "${{inputs.commit_msg}}" || true
       shell: bash
     - name: Push changes
       if: ${{ inputs.preview == 'false' }}
