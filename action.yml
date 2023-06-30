@@ -64,6 +64,6 @@ runs:
       if: ${{ inputs.preview == 'false' }}
       uses: ad-m/github-push-action@master
       with:
-        directory: ${{inputs.printer_mods_subdir}}
+        directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
         github_token: ${{inputs.github_token}}
         branch: ${{github.ref}}
