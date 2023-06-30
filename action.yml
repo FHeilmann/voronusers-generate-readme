@@ -48,7 +48,7 @@ runs:
   using: "composite"
   steps:
     - name: Perform Sparse Checkout
-      if: ${{ env.do_checkout == 'true' }}
+      if: ${{ inputs.do_checkout == 'true' }}
       id: sparse-checkout
       uses: FHeilmann/sparse-checkout@main
       with:
