@@ -39,22 +39,9 @@ inputs:
     type: boolean
     required: true
     default: true
-  do_checkout:
-    description: Whether checkout needs to be performed (true) or all files are already present (false)
-    type: boolean
-    required: true
-    default: true
 runs:
   using: "composite"
   steps:
-    - name: Perform Sparse Checkout
-      if: ${{ inputs.do_checkout == 'true' }}
-      id: sparse-checkout
-      uses: FHeilmann/sparse-checkout@main
-      with:
-        files: "**/README.md"
-        patterns: "**/.metadata.yml"
-        path: ${{inputs.base_dir}}
     - name: Setup Python 3.11
       uses: actions/setup-python@v4
       with:
