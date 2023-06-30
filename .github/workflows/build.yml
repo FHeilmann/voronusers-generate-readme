@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
       - name: Test action
         # The action should not publish any real changes, but should succeed.
         uses: './'

@@ -13,7 +13,6 @@ inputs:
   github_token:
     description: 'GitHub token or PAT token'
     required: true
-    default: ${{ github.token }}
   commit_msg:
     description: "Commit message to use (don't forget to add [skip ci])"
     type: string
