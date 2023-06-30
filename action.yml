@@ -5,15 +5,15 @@ branding:
   icon: 'hard-drive'
   color: 'red'
 inputs:
-  printer_mods_subdir:
-    description: Name of the subdirectory, relative to the repository base directory, in which the printer mods are located
+  target_directory:
+    description: Name of the directory in which the printer mods are located and where README.md is generated
     type: string
     required: true
     default: printer_mods
   github_token:
     description: 'GitHub token or PAT token'
     required: true
-    default: ${{secrets.GITHUB_TOKEN}}
+    default: ${{github.token}}
   commit_msg:
     description: "Commit message to use (don't forget to add [skip ci])"
     type: string
@@ -40,20 +40,19 @@ runs:
     - name: Setup Python 3.11
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11' 
+        python-version: '3.11'
     - name: Install PyYAML
       run: |
         pip install pyyaml
       shell: bash
     - name: Generate README.md
-      working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
+        cd ${{inputs.printer_mods_subdir}}
         export PREVIEW=${{inputs.preview}}
         python ${{github.action_path}}/generate_readme.py
       shell: bash
-    - name: Commit files 
+    - name: Commit files
       if: ${{ inputs.preview == 'false' }}
-      working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
@@ -64,6 +63,6 @@ runs:
       if: ${{ inputs.preview == 'false' }}
       uses: ad-m/github-push-action@master
       with:
-        directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
+        directory: ${{inputs.printer_mods_subdir}}
         github_token: ${{inputs.github_token}}
         branch: ${{github.ref}}
