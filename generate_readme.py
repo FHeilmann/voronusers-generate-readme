@@ -10,7 +10,7 @@ Printer mods for Voron 3D printers
 ## Legacy printers
 
 Mods for legacy printers can be found [here](../legacy_printers/printer_mods).
-If one of your legacy mods applies to a current Voron 3D printer and therefore should be included in this list, 
+If one of your legacy mods applies to a current Voron 3D printer and therefore should be included in this list,
 contact the admins on Discord to have your mod moved to this folder.
 
 ---
@@ -27,7 +27,6 @@ def main():
   yaml_list = Path(".").glob("**/.metadata.yml")
   prev_username = ""
   final_readme = ""
-  print(f"Preview: {os.environ['PREVIEW']}")
   for yml in yaml_list:
       with open(yml, 'r') as f:
           content = yaml.safe_load(f)
@@ -36,10 +35,11 @@ def main():
           description = textwrap.shorten(content["description"], width=70, placeholder="...")
           final_readme += (f'| {creator} | [{title}]({yml.relative_to(".").parent}) | {description} | {", ".join(sorted(content["printer_compatibility"]))} |\n')
           prev_username = yml.parts[0]
+  print("## README.md preview\n\n")
   print(header)
   print(final_readme)
+  print("\n\n")
   if os.environ['PREVIEW'] == 'false':
-      print(f"Writing README.md to {Path('README.md')}")
       with open("README.md", 'w') as f:
         f.write(preamble)
         f.write(header)
