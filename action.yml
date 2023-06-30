@@ -5,11 +5,6 @@ branding:
   icon: 'hard-drive'
   color: 'red'
 inputs:
-  base_dir:
-    description: Base directory in which the repository will be checked out into
-    type: string
-    required: true
-    default: ""
   printer_mods_subdir:
     descritption: Name of the subdirectory, relative to the repository base directory, in which the printer mods are located
     type: string
@@ -70,6 +65,6 @@ runs:
       if: ${{ inputs.preview == 'false' }}
       uses: ad-m/github-push-action@b007e7b818e33b04afd056e4c4b57ba917145d7a
       with:
-        directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
+        directory: ${{inputs.printer_mods_subdir}}
         github_token: ${{inputs.github_token}}
         branch: ${{github.ref}}
