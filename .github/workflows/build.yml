@@ -18,4 +18,4 @@ jobs:
           commit_msg: "Generate action tests README.md [skip ci]"
           commit_user: Voron-GitHub-Bot
           commit_email: github@vorondesign.com
-          github_token: ${{secrets.VORON_BOT_TOKEN}}
+          github_token: ${{secrets.VORON_BOT_PAT}}

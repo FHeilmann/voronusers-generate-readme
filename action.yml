@@ -6,13 +6,13 @@ branding:
   color: 'red'
 inputs:
   printer_mods_subdir:
-    descritption: Name of the subdirectory, relative to the repository base directory, in which the printer mods are located
+    description: Name of the subdirectory, relative to the repository base directory, in which the printer mods are located
     type: string
     required: true
     default: printer_mods
   github_token:
     description: 'GitHub token or PAT token'
-    required: false
+    required: true
     default: ${{ github.token }}
   commit_msg:
     description: "Commit message to use (don't forget to add [skip ci])"
@@ -55,7 +55,6 @@ runs:
       if: ${{ inputs.preview == 'false' }}
       working-directory: ${{github.workspace}}/${{inputs.printer_mods_subdir}}
       run: |
-        ls -al
         git config --local user.email ${{inputs.commit_email}}
         git config --local user.name ${{inputs.commit_user}}
         git add README.md
@@ -63,7 +62,7 @@ runs:
       shell: bash
     - name: Push changes
       if: ${{ inputs.preview == 'false' }}
-      uses: ad-m/github-push-action@b007e7b818e33b04afd056e4c4b57ba917145d7a
+      uses: ad-m/github-push-action@master
       with:
         directory: ${{inputs.printer_mods_subdir}}
         github_token: ${{inputs.github_token}}
