@@ -9,7 +9,7 @@ inputs:
     description: Base directory in which the repository will be checked out into
     type: string
     required: true
-    default: .
+    default: ""
   printer_mods_subdir:
     descritption: Name of the subdirectory, relative to the repository base directory, in which the printer mods are located
     type: string
