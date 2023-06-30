@@ -10,8 +10,6 @@ contact the admins on Discord to have your mod moved to this folder.
 
 ---
 
-
-
 | Creator | Mod title | Description | Printer compatibility |
 | --- | --- | --- | --- |
 | VoronBot | [MOD_A](VoronBot/mod_1_a) | Awesome mod A | V2 |
