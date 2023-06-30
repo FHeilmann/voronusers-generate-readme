@@ -5,7 +5,7 @@ Printer mods for Voron 3D printers
 ## Legacy printers
 
 Mods for legacy printers can be found [here](../legacy_printers/printer_mods).
-If one of your legacy mods applies to a current Voron 3D printer and therefore should be included in this list, 
+If one of your legacy mods applies to a current Voron 3D printer and therefore should be included in this list,
 contact the admins on Discord to have your mod moved to this folder.
 
 ---
