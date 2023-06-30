@@ -52,7 +52,8 @@ runs:
       id: sparse-checkout
       uses: FHeilmann/sparse-checkout@main
       with:
-        patterns: "**/.metadata.yml ${{inputs.base_dir}}/**/README.md"
+        files: README.md
+        patterns: "**/.metadata.yml
         path: ${{inputs.base_dir}}
     - name: Setup Python 3.11
       uses: actions/setup-python@v4
