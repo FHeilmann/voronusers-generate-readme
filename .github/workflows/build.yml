@@ -12,6 +12,8 @@ jobs:
       - name: Test action
         # The action should not publish any real changes, but should succeed.
         uses: './'
+        env:
+          PREVIEW: false
         with:
           base_dir: "tmp_test"
           printer_mods_subdir: ".action_tests/printer_mods"

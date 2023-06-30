@@ -1,9 +1,9 @@
 from pathlib import Path
+import os
 import yaml
 import textwrap
 
-preamble = """
-# Mods
+preamble = """# Mods
 
 Printer mods for Voron 3D printers
 
@@ -15,13 +15,16 @@ contact the admins on Discord to have your mod moved to this folder.
 
 ---
 
+"""
+
+header = """
+
 | Creator | Mod title | Description | Printer compatibility |
 | --- | --- | --- | --- |
 """
 
 def main():
   yaml_list = Path(".").glob("**/.metadata.yml")
-  final_readme = preamble
   prev_username = ""
   for yml in yaml_list:
       with open(yml, 'r') as f:
@@ -31,9 +34,13 @@ def main():
           description = textwrap.shorten(content["description"], width=70, placeholder="...")
           final_readme += (f'| {creator} | [{title}]({yml.relative_to(".").parent}) | {description} | {", ".join(sorted(content["printer_compatibility"]))} |\n')
           prev_username = yml.parts[0]
+  print(header)
   print(final_readme)
-  with open("README.md", 'w') as f:
-    f.write(final_readme)
+  if os.environ['PREVIEW'] = 'false'
+      with open("README.md", 'w') as f:
+        f.write(preamble)
+        f.write(header)
+        f.write(final_readme)
 
 if __name__ == "__main__":
   main()

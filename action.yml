@@ -57,6 +57,7 @@ runs:
         python $GITHUB_WORKSPACE/generate_readme.py
       shell: bash
     - name: Commit files 
+      if: ${{ env.PREVIEW == 'false' }}
       working-directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
       run: |
         git config --local user.email ${{inputs.commit_email}}
@@ -65,6 +66,7 @@ runs:
         git commit -m "${{inputs.commit_msg}}"
       shell: bash
     - name: Push changes
+      if: ${{ env.PREVIEW == 'false' }}
       uses: ad-m/github-push-action@b007e7b818e33b04afd056e4c4b57ba917145d7a
       with:
         directory: ${{inputs.base_dir}}/${{inputs.printer_mods_subdir}}
