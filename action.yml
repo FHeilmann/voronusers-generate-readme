@@ -49,7 +49,7 @@ runs:
       run: |
         cd ${{inputs.target_directory}}
         export PREVIEW=${{inputs.preview}}
-        python ${{github.action_path}}/generate_readme.py
+        python ${{github.action_path}}/generate_readme.py >> $GITHUB_STEP_SUMMARY
       shell: bash
     - name: Commit files
       if: ${{ inputs.preview == 'false' }}
