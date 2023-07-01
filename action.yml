@@ -34,6 +34,10 @@ inputs:
     type: boolean
     required: true
     default: true
+  python_cache_key:
+    description: Cache key for a python installation that already contains the required dependencies
+    type: string
+    required: false
 runs:
   using: "composite"
   steps:
@@ -41,7 +45,17 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    - name: Install PyYAML
+    - if: ${{ inputs.python_cache_key != '' }}
+      name: Get python package cache 🧰
+      uses: actions/cache/restore@v3
+      id: cache-python
+      env:
+        cache-name: cache-python
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ inputs.python_cache_key }}
+    - if: ${{ steps.cache-python.outputs.cache-hit != 'true' }}
+      name: Install PyYAML
       run: |
         pip install pyyaml
       shell: bash
